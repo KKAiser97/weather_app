@@ -12,7 +12,7 @@ class WeatherInitialState extends WeatherState {}
 class WeatherLoadingState extends WeatherState {}
 
 class WeatherLoadedState extends WeatherState {
-  final Weather weather;
+  final List<WeatherEntity> weather;
 
   const WeatherLoadedState({required this.weather});
 
