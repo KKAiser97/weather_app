@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:weather_app/config/config.dart';
+import 'package:weather_app/repository/model/all_weather_model.dart';
 
 class WeatherApiClient {
   static const apiKey = Configuration.apiKey;
   static const days = Configuration.days;
 
-  Future<Map<String, dynamic>> getWeatherData(String lat, String lon) async {
+  Future<List<AllWeather>> getWeatherData(String lat, String lon) async {
     final weatherUrl =
         'https://api.openweathermap.org/data/2.5/forecast/daily?lat=$lat&lon=$lon&cnt=$days&appid=$apiKey';
     final response = await http.get(Uri.parse(weatherUrl));

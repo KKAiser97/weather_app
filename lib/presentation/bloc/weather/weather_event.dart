@@ -8,19 +8,9 @@ abstract class WeatherEvent extends Equatable {
 }
 
 class WeatherRequestedEvent extends WeatherEvent {
-  final String city;
-
-  const WeatherRequestedEvent({required this.city});
-
-  @override
-  List<Object> get props => [city];
+  const WeatherRequestedEvent();
 }
 
 class WeatherRefreshRequestedEvent extends WeatherEvent {
-  final String city;
-
-  const WeatherRefreshRequestedEvent({required this.city});
-
-  @override
-  List<Object> get props => [city];
+  const WeatherRefreshRequestedEvent();
 }

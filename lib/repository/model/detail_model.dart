@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'detail_model.g.dart';
+
+@JsonSerializable()
 class Detail {
   final double temp;
   final double feelsLike;
@@ -18,4 +23,9 @@ class Detail {
     this.seaLevel,
     this.grndLevel,
   );
+
+  factory Detail.fromJson(Map<String, dynamic> json) =>
+      _$DetailFromJson(json);
+
+  Map<String, dynamic> toJson() => _$DetailToJson(this);
 }

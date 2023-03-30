@@ -19,6 +19,7 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
   void initState() {
     super.initState();
     _weatherBloc = context.read<WeatherBloc>();
+    _weatherBloc.add(const WeatherRequestedEvent());
   }
   @override
   Widget build(BuildContext context) {
@@ -30,21 +31,22 @@ class _WeatherSearchPageState extends State<WeatherSearchPage> {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            TextField(
-              controller: _cityTextController,
-              decoration: InputDecoration(
-                labelText: 'Enter city name',
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.search),
-                  onPressed: () {
-                    _weatherBloc.add(
-                      WeatherRequestedEvent(city: _cityTextController.text),
-                    );
-                  },
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
+            /// may add search location later
+            // TextField(
+            //   controller: _cityTextController,
+            //   decoration: InputDecoration(
+            //     labelText: 'Enter city name',
+            //     suffixIcon: IconButton(
+            //       icon: const Icon(Icons.search),
+            //       onPressed: () {
+            //         _weatherBloc.add(
+            //           WeatherRequestedEvent(city: _cityTextController.text),
+            //         );
+            //       },
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(height: 10),
             BlocBuilder<WeatherBloc, WeatherState>(
               builder: (context, state) {
                 if (state is WeatherInitialState) {

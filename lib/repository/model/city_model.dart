@@ -1,12 +1,28 @@
-class City {
-  final double latitude;
-  final double longitude;
-  /// The altitude of the position in meters above sea level.
-  final double altitude;
+import 'package:json_annotation/json_annotation.dart';
 
-  City({
-    required this.latitude,
-    required this.longitude,
-    this.altitude = 0.0,
-  });
+import 'coord_model.dart';
+
+part 'city_model.g.dart';
+
+@JsonSerializable()
+class City {
+  final int id;
+  final String name;
+  final Coordinate coord;
+  final String country;
+  final int population;
+  final int timezone;
+
+  City(
+    this.id,
+    this.name,
+    this.coord,
+    this.country,
+    this.population,
+    this.timezone,
+  );
+
+  factory City.fromJson(Map<String, dynamic> json) => _$CityFromJson(json);
+
+  Map<String, dynamic> toJson() => _$CityToJson(this);
 }
