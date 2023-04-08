@@ -1,15 +1,16 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'weather_model.g.dart';
 
 @JsonSerializable()
-class Weather {
+class Weather extends Equatable {
   final int id;
   final String main;
   final String description;
   final String icon;
 
-  Weather(
+  const Weather(
     this.id,
     this.main,
     this.description,
@@ -20,4 +21,13 @@ class Weather {
       _$WeatherFromJson(json);
 
   Map<String, dynamic> toJson() => _$WeatherToJson(this);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        id,
+        main,
+        description,
+        icon,
+      ];
 }

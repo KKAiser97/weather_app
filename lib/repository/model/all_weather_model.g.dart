@@ -7,34 +7,28 @@ part of 'all_weather_model.dart';
 // **************************************************************************
 
 AllWeather _$AllWeatherFromJson(Map<String, dynamic> json) => AllWeather(
-      json['sunrise'] as int,
-      json['sunset'] as int,
-      Temperature.fromJson(json['temp'] as Map<String, dynamic>),
-      json['pressure'] as int,
-      json['humidity'] as int,
       (json['weather'] as List<dynamic>)
           .map((e) => Weather.fromJson(e as Map<String, dynamic>))
           .toList(),
-      (json['speed'] as num).toDouble(),
-      json['deg'] as int,
-      (json['gust'] as num).toDouble(),
-      json['clouds'] as int,
-      (json['pop'] as num).toDouble(),
-      (json['rain'] as num).toDouble(),
+      Coordinate.fromJson(json['coord'] as Map<String, dynamic>),
+      Detail.fromJson(json['main'] as Map<String, dynamic>),
+      json['visibility'] as int,
+      Wind.fromJson(json['wind'] as Map<String, dynamic>),
+      Rain.fromJson(json['rain'] as Map<String, dynamic>),
+      Clouds.fromJson(json['clouds'] as Map<String, dynamic>),
+      json['dt'] as int,
+      Sys.fromJson(json['sys'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AllWeatherToJson(AllWeather instance) =>
     <String, dynamic>{
-      'sunrise': instance.sunrise,
-      'sunset': instance.sunset,
-      'temp': instance.temp,
-      'pressure': instance.pressure,
-      'humidity': instance.humidity,
       'weather': instance.weather,
-      'speed': instance.speed,
-      'deg': instance.deg,
-      'gust': instance.gust,
-      'clouds': instance.clouds,
-      'pop': instance.pop,
+      'coord': instance.coord,
+      'main': instance.main,
+      'visibility': instance.visibility,
+      'wind': instance.wind,
       'rain': instance.rain,
+      'clouds': instance.clouds,
+      'dt': instance.dt,
+      'sys': instance.sys,
     };

@@ -1,14 +1,14 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'coord_model.g.dart';
 
 @JsonSerializable()
-class Coordinate {
+class Coordinate extends Equatable {
   final double latitude;
   final double longitude;
 
-
-  Coordinate({
+  const Coordinate({
     required this.latitude,
     required this.longitude,
   });
@@ -17,4 +17,8 @@ class Coordinate {
       _$CoordinateFromJson(json);
 
   Map<String, dynamic> toJson() => _$CoordinateToJson(this);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [latitude, longitude];
 }

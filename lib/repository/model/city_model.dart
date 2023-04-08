@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'coord_model.dart';
@@ -5,7 +6,7 @@ import 'coord_model.dart';
 part 'city_model.g.dart';
 
 @JsonSerializable()
-class City {
+class City extends Equatable {
   final int id;
   final String name;
   final Coordinate coord;
@@ -13,7 +14,7 @@ class City {
   final int population;
   final int timezone;
 
-  City(
+  const City(
     this.id,
     this.name,
     this.coord,
@@ -25,4 +26,15 @@ class City {
   factory City.fromJson(Map<String, dynamic> json) => _$CityFromJson(json);
 
   Map<String, dynamic> toJson() => _$CityToJson(this);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [
+        id,
+        name,
+        coord,
+        country,
+        population,
+        timezone,
+      ];
 }

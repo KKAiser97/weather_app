@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_app/config/config.dart';
 import 'package:weather_app/repository/entity/weather_entity.dart';
 
 import '../../../data/location_service.dart';
@@ -17,7 +18,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     on<WeatherRequestedEvent>((event, emit) async {
       emit(WeatherLoadingState());
       try {
-        List<WeatherEntity> weatherEntity = await getWeatherOfCurrentPosition();
+        List<WeatherEntity> weatherEntity =
+            await getWeatherForecastOfCurrentPosition();
         emit(WeatherLoadedState(weather: weatherEntity));
       } catch (_) {
         emit(WeatherErrorState());
@@ -26,7 +28,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
 
     on<WeatherRefreshRequestedEvent>((event, emit) async {
       try {
-        List<WeatherEntity> weatherEntity = await getWeatherOfCurrentPosition();
+        List<WeatherEntity> weatherEntity =
+            await getWeatherForecastOfCurrentPosition();
         emit(WeatherLoadedState(weather: weatherEntity));
       } catch (_) {
         emit(state);
@@ -34,17 +37,22 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
     });
   }
 
-  Future<List<WeatherEntity>> getWeatherOfCurrentPosition() async {
+  Future<List<WeatherEntity>> getWeatherForecastOfCurrentPosition() async {
     final position = await LocationService.getCurrentLocation();
-    final weather = await weatherRepository.getWeather(
-        position.latitude.toString(), position.longitude.toString());
-    final weatherEntity = weather
+    final weather = await weatherRepository.getWeatherForecast(
+      position.latitude.toString(),
+      position.longitude.toString(),
+      Configuration.apiKey,
+    );
+    print(weather);
+    final weatherEntity = weather.listWeather
         .map((e) => WeatherEntity(
-              temperature: e.temp.day,
+              temperature: e.main.temp,
               description: e.weather.first.description,
               iconUrl: e.weather.first.icon,
             ))
         .toList();
+
     return weatherEntity;
   }
 }

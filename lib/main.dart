@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/data/weather_api.dart';
+import 'package:weather_app/data/weather_repo_iplm.dart';
 import 'package:weather_app/presentation/bloc/weather/weather_bloc.dart';
 import 'package:weather_app/presentation/ui/weather_search_page.dart';
 import 'package:weather_app/repository/weather_repository.dart';
@@ -18,9 +20,9 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           BlocProvider(
-            create: (_) => WeatherBloc(
-              weatherRepository: WeatherRepository(WeatherApiClient()),
-            ),
+            //TODO: need checking
+            /// error: _InheritedProviderScope<WeatherBloc?>(value: Instance of 'WeatherBloc', listening to value)
+            create: (_) => WeatherBloc(weatherRepository: WeatherRepository(WeatherApiImpl(weatherApiClient: WeatherApiClient(Dio())))),
           ),
         ],
         child: MaterialApp(
